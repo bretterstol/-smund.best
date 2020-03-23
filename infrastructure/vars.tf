@@ -29,3 +29,29 @@ variable "cidr_all" {
 variable "ssh_key" {
   default = "MYUSE1KP"
 }
+
+variable "default_egress" {
+  type = list(object({
+    description = string
+    from_port = number
+    to_port = number
+    protocol = string
+    cidr_blocks = list(string)
+    ipv6_cidr_blocks = list(string)
+    prefix_list_ids = list(string)
+    security_groups = list(string)
+    self = bool
+  }))
+
+  default = [{
+    description = "Allow all to all"
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+    ipv6_cidr_blocks = []
+    prefix_list_ids = []
+    security_groups = []
+    self = false
+  }]
+}

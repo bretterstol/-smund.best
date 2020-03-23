@@ -108,13 +108,7 @@ resource "aws_security_group" "allow_http" {
     protocol    = "tcp"
     cidr_blocks = [var.cidr_all]
   }
-  egress {
-    description = "Allow all to all"
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = [var.cidr_all]
-  }
+  egress = var.default_egress
 
   tags = {
     Name = "allow_http"
@@ -133,13 +127,7 @@ resource "aws_security_group" "allow_ssh" {
     protocol    = "tcp"
     cidr_blocks = [var.cidr_all]
   }
-  egress {
-    description = "Allow all to all"
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = [var.cidr_all]
-  }
+  egress = var.default_egress
 
   tags = {
     Name = "allow_ssh"
@@ -159,13 +147,7 @@ resource "aws_security_group" "bastion_sec" {
     cidr_blocks = [var.my_ip]
   }
 
-  egress {
-    description = "Allow all to all"
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = [var.cidr_all]
-  }
+  egress = var.default_egress
   tags = {
     Name = "bastion_sec"
   }
@@ -194,13 +176,7 @@ resource "aws_security_group" "worker_sec" {
       aws_security_group.allow_http.id
     ]
   }
-  egress {
-    description = "Allow all to all"
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = [var.cidr_all]
-  }
+  egress = var.default_egress
 
   tags = {
     Name = "worker_sec"
@@ -230,13 +206,7 @@ resource "aws_security_group" "redis_sec" {
       aws_security_group.worker_sec.id
     ]
   }
-  egress {
-    description = "Allow all to all"
-    from_port   = 0
-    to_port     = 0
-    protocol    = -1
-    cidr_blocks = [var.cidr_all]
-  }
+  egress = var.default_egress
   tags = {
     Name = "redis_sec"
   }
