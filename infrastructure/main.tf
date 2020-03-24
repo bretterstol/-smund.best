@@ -227,6 +227,7 @@ resource "aws_instance" "webserver" {
   tags = {
     Name = "Webserver"
   }
+  user_data = file("install_nginx.sh")
 }
 
 resource "aws_instance" "bastion" {
